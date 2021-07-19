@@ -24,6 +24,8 @@ services:
       dockerfile: Dockerfile.dev
       context: ./my-blog-server
     container_name: my-blog-server
+    ports:
+      - 9090:9090
     volumes:
       - ./my-blog-server:/app
       - /app/node_modules      
