@@ -1,0 +1,37 @@
+# my-blog 
+  1. React - listen 8080
+
+# my-blog-server
+  1. Nest.js - listen 9090 
+
+# nginx 
+  1. Reverse Proxy
+    :80/       => my-blog
+    :80/api/v1 => my-blog-server
+
+# mysql
+  1. Mysql 5.7.x Database Server
+
+
+# env
+  1. Oracle Cloud
+    1) 146.56.137.7(opc) - nginx + mysql + react + nest.js
+        - docker version - 20.10.7 
+        - docker-compose - 1.24.1
+    2) 146.56.163.92(jenkins) jenkins
+        - Setting 
+          가) git push Trigger
+            - GITHUB WEBHOOK 
+          나) Command
+            - sudo yum install git
+            sudo rm -rf myblog-docker
+            sudo docker stop $(sudo docker ps -a -q)
+            sudo docker rm $(sudo docker ps -a -q)
+            sudo docker rmi $(sudo docker images -q)
+
+            git clone https://github.com/ks78mk2/myblog-docker.git
+            cd myblog-docker
+            git clone https://github.com/ks78mk2/my-blog.git
+            git clone https://github.com/ks78mk2/my-blog-server.git
+            sudo docker-compose up -d --force-recreate --build
+        
