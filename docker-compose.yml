@@ -56,7 +56,7 @@ services:
     networks: 
       - db-network
 
-  networks:
-    db-network:
-      driver: bridge
-    
+networks:
+  db-network:
+    driver: bridge
+  
