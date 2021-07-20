@@ -11,9 +11,7 @@ services:
       - /app/node_modules     
     stdin_open: true
     shm_size: '5gb'
-    networks: 
-      - default
-
+    
   nginx:
     #재시작 정책
     #no: 어떠한 상황에서도 재시작을 하지 않습니다
@@ -26,8 +24,6 @@ services:
       context: ./nginx
     ports:
       - "80:80"
-    networks: 
-      - default
 
   backend:
     build: 
@@ -38,11 +34,6 @@ services:
       - ./my-blog-server:/app
       - /app/node_modules      
     shm_size: '5gb'  
-    networks: 
-      - default
-      - db-network
-    depends_on: 
-      - mysql
 
   mysql:
     image: mysql:5.7
@@ -58,10 +49,4 @@ services:
       - ./mysql/initdb.d:/docker-entrypoint-initdb.d
     shm_size: '5gb'
     #mysql의 root 비밀번호와 db를 설정해준다.
-    networks: 
-      - db-network
-
-networks:
-  db-network:
-    driver: bridge
   
