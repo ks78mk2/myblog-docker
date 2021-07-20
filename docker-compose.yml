@@ -9,8 +9,6 @@ services:
     volumes:
       - ./my-blog:/app
       - /app/node_modules     
-    ports:
-      - 8080:8080
     stdin_open: true
     shm_size: '5gb'
 
@@ -32,8 +30,6 @@ services:
       dockerfile: Dockerfile.dev
       context: ./my-blog-server
     container_name: my-blog-server
-    ports:
-      - 9090:9090
     volumes:
       - ./my-blog-server:/app
       - /app/node_modules      
