@@ -46,11 +46,11 @@ services:
       MYSQL_DATABASE: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
+    expose:
+      - 3306
     volumes:
       - /home/opc/mysql/data:/var/lib/mysql      
       - ./mysql/initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - 33066:3306
     shm_size: '5gb'
     #mysql의 root 비밀번호와 db를 설정해준다.
     networks: 
@@ -58,4 +58,5 @@ services:
 
   networks:
     db-network:
+      driver: bridge
     
