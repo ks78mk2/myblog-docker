@@ -11,6 +11,8 @@ services:
       - /app/node_modules     
     stdin_open: true
     shm_size: '5gb'
+    networks: 
+      - default
 
   nginx:
     #재시작 정책
@@ -23,7 +25,9 @@ services:
       dockerfile: Dockerfile
       context: ./nginx
     ports:
-      - "80:80"  
+      - "80:80"
+    networks: 
+      - default
 
   backend:
     build: 
@@ -35,6 +39,7 @@ services:
       - /app/node_modules      
     shm_size: '5gb'  
     networks: 
+      - default
       - db-network
     depends_on: 
       - mysql
