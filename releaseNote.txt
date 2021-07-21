@@ -1,37 +1,78 @@
-# my-blog 
-  1. React - listen 8080
+1. created-by Jskim
 
-# my-blog-server
-  1. Nest.js - listen 9090 
+2. Directory 
+  # my-blog (react front-end)
+    - React - listen 8080
 
-# nginx 
-  1. Reverse Proxy
-    :80/       => my-blog
-    :80/api/v1 => my-blog-server
+  # my-blog-server (nest back-end)
+    - Nest.js - listen 9090 
 
-# mysql
-  1. Mysql 5.7.x Database Server
+  # nginx 
+    - Reverse Proxy
+      :80/       => my-blog        
+      :80/api/v1 => my-blog-server
 
+  # mysql
+    - Mysql 5.7.x Database 
 
-# env
-  1. Oracle Cloud
-    1) 146.56.137.7(opc) - nginx + mysql + react + nest.js
+3. History
+  2021.07.21 - jenkins + docker를 이용한 전체 배포 초기 설정 완료 
+
+4. env
+  [Oracle Cloud]
+    1. 146.56.137.7(opc) - nginx + mysql + react + nest.js
         - docker version - 20.10.7 
         - docker-compose - 1.24.1
-    2) 146.56.163.92(jenkins) jenkins
+        
+    2. 146.56.163.92(jenkins) jenkins
         - Setting 
-          가) git push Trigger
+          1) git push Trigger
             - GITHUB WEBHOOK 
-          나) Command
-            - sudo yum install git
-            sudo rm -rf myblog-docker
-            sudo docker stop $(sudo docker ps -a -q)
-            sudo docker rm $(sudo docker ps -a -q)
-            sudo docker rmi $(sudo docker images -q)
+            - Dashboard -> my-blog (git, docker-compose를 이용한 전체 배포 nginx + react + nest.js + mysql)
+                        -> my-blog-nest  (docker-hub 를 이용한 nest.js 개별 배포)
+                        -> my-blog-react (docker-hub 를 이용한 react 개별 배포)
+          2) Command
+            가) my-blog 
+              [빌드 후 배포]
+                sudo yum install git
+                sudo docker stop $(sudo docker ps -a -q)
+                sudo docker rm $(sudo docker ps -a -q)
+                sudo docker rmi $(sudo docker images -q)
 
-            git clone https://github.com/ks78mk2/myblog-docker.git
-            cd myblog-docker
-            git clone https://github.com/ks78mk2/my-blog.git
-            git clone https://github.com/ks78mk2/my-blog-server.git
-            sudo docker-compose up -d --force-recreate --build
+                sudo rm -rf myblog-docker
+                sudo git clone https://github.com/ks78mk2/myblog-docker.git
+                cd myblog-docker
+
+                sudo git clone https://github.com/ks78mk2/my-blog.git
+                sudo git clone https://github.com/ks78mk2/my-blog-server.git
+                sudo docker-compose up -d --force-recreate --build
+
+            나) my-blog-nest 
+              [빌드] 
+                sudo docker build -t ks78mk2/my-blog-server .
+                sudo docker login -u ks78mk2 -p '비밀번호 입력란'
+                sudo docker push ks78mk2/my-blog-server
+              [빌드 후 배포]
+                sudo docker stop myblog-docker_backend
+                sudo docker rm myblog-docker_backend
+                sudo docker rmi myblog-docker_backend
+                sudo docker pull ks78mk2/my-blog-server
+                sudo docker tag ks78mk2/my-blog-server myblog-docker_backend
+                sudo docker rmi ks78mk2/my-blog-server
+                nohup sudo docker run -d --name myblog-docker_backend --network myblog-docker_default myblog-docker_backend > nohup.out 2>&1 &
+
+            다) my-blog-react
+              [빌드]
+                sudo docker build -t ks78mk2/my-blog-server .
+                sudo docker login -u ks78mk2 -p '비밀번호 입력란'
+                sudo docker push ks78mk2/my-blog-server
+              [빌드 후 배포]
+                sudo docker stop myblog-docker_frontend
+                sudo docker rm myblog-docker_frontend
+                sudo docker rmi myblog-docker_frontend
+                sudo docker pull ks78mk2/my-blog
+                sudo docker tag ks78mk2/my-blog myblog-docker_frontend
+                sudo docker rmi ks78mk2/my-blog
+                nohup sudo docker run -d --name myblog-docker_frontend --network myblog-docker_default  myblog-docker_frontend > nohup.out 2>&1 &
+
         
