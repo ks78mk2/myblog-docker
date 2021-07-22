@@ -42,8 +42,7 @@ services:
       MYSQL_DATABASE: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
-    expose:
-      - 3306
+    ports: 3306:3306
     volumes:
       - /home/opc/mysql/data:/var/lib/mysql      
       - ./mysql/initdb.d:/docker-entrypoint-initdb.d
