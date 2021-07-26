@@ -1,5 +1,20 @@
 version: "3"
 services: 
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/opc/mysql/data:/var/lib/mysql      
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    shm_size: '5gb'
+    #mysql의 root 비밀번호와 db를 설정해준다.
+    
   frontend:
     build:
       dockerfile: Dockerfile.dev
@@ -34,19 +49,4 @@ services:
       - ./my-blog-server:/app
       - /app/node_modules      
     shm_size: '5gb'  
-
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    environment:
-      MYSQL_DATABASE: root
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_ROOT_HOST: '%'
-    ports:
-      - "3306:3306"
-    volumes:
-      - /home/opc/mysql/data:/var/lib/mysql      
-      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
-    shm_size: '5gb'
-    #mysql의 root 비밀번호와 db를 설정해준다.
   
