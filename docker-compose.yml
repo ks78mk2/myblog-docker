@@ -4,8 +4,10 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
-      MYSQL_DATABASE: root
+      MYSQL_DATABASE: myBlog
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
     ports:
       - "3306:3306"
