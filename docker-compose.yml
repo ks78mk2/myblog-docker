@@ -1,14 +1,13 @@
 version: "3"
 services: 
   mysql:
-    image: mysql:5.7
-    container_name: mysql
-    volumes:
-      - "/home/opc/mysql/data:/var/lib/mysql"      
-      - "./mysql/initdb.d:/docker-entrypoint-initdb.d"
+    build:
+        dockerfile: Dockerfile
+        context: ./mysql
     restart: always
+    container_name: mysql
     environment:
-      MYSQL_DATABASE: myBlog
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
       MYSQL_PASSWORD: user
     ports:
