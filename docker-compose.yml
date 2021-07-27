@@ -18,9 +18,7 @@ services:
     #mysql의 root 비밀번호와 db를 설정해준다.
     
   frontend:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./my-blog
+    image : ks78mk2/my-blog
     container_name: myblog-docker_frontend
     #코드 수정후 다시이미지 build없이 코드가 반영 될 수 있게 volume을 사용한다.
     volumes:
@@ -43,9 +41,7 @@ services:
       - "80:80"
 
   backend:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./my-blog-server
+    image: ks78mk2/my-blog-server
     container_name: myblog-docker_backend
     volumes:
       - ./my-blog-server:/app
