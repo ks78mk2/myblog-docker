@@ -44,5 +44,6 @@ services:
     container_name: backend
     volumes:
       - ./my-blog-server:/app
+      - ./home/opc/my-blog-server-static/node_modules:/app/node_modules
     shm_size: '5gb'  
   
