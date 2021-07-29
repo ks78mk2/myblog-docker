@@ -30,7 +30,7 @@
             - GITHUB WEBHOOK 
             - Dashboard -> my-blog (git, docker-compose를 이용한 전체 배포 nginx + react + nest.js + mysql)
                         -> my-blog-nest  (docker-hub 를 이용한 nest.js 개별 배포)
-                        -> my-blog-react (docker-hub 를 이용한 react 개별 배포)
+                        -> my-blog-react (docker-hub 를 이용한 react 개별 배포, ./build 전체 git push 후 배포 )
           2) Command
             가) my-blog 
               [빌드 후 배포]
@@ -53,13 +53,10 @@
                 sudo docker login -u ks78mk2 -p '비밀번호 입력란'
                 sudo docker push ks78mk2/my-blog-server
               [빌드 후 배포]
-                sudo docker stop myblog-docker_backend
-                sudo docker rm myblog-docker_backend
-                sudo docker rmi myblog-docker_backend
+                sudo docker stop backend
+                sudo docker rm backend
                 sudo docker pull ks78mk2/my-blog-server
-                sudo docker tag ks78mk2/my-blog-server myblog-docker_backend
-                sudo docker rmi ks78mk2/my-blog-server
-                nohup sudo docker run -d --name myblog-docker_backend --network myblog-docker_default myblog-docker_backend > nohup.out 2>&1 &
+                nohup sudo docker run -d --name backend --network myblog-docker_default ks78mk2/my-blog-server > nohup.out 2>&1 &
 
             다) my-blog-react
               [빌드]
@@ -67,12 +64,9 @@
                 sudo docker login -u ks78mk2 -p '비밀번호 입력란'
                 sudo docker push ks78mk2/my-blog-server
               [빌드 후 배포]
-                sudo docker stop myblog-docker_frontend
-                sudo docker rm myblog-docker_frontend
-                sudo docker rmi myblog-docker_frontend
+                sudo docker stop frontend
+                sudo docker rm frontend
                 sudo docker pull ks78mk2/my-blog
-                sudo docker tag ks78mk2/my-blog myblog-docker_frontend
-                sudo docker rmi ks78mk2/my-blog
-                nohup sudo docker run -d --name myblog-docker_frontend --network myblog-docker_default  myblog-docker_frontend > nohup.out 2>&1 &
+                nohup sudo docker run -d --name frontend --network myblog-docker_default  ks78mk2/my-blog > nohup.out 2>&1 &
 
         
