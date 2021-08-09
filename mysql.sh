@@ -1,4 +1,4 @@
-BASIC_PATH=~/mysql
+BASIC_PATH=/home/opc/mysql
 
 if [ ! -d "$BASIC_PATH" ]; then
         echo "THIS BASIC PATH NOT EXIST"
