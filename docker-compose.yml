@@ -41,7 +41,7 @@ services:
     image: ks78mk2/my-blog-server
     container_name: backend
     volumes:
-      - ~/my-blog-server-static:/app
+      - ./my-blog-server:/app
       - /app/node_modules
     shm_size: '5gb'  
   
