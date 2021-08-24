@@ -12,6 +12,7 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - "~/mysql/data:/var/lib/mysql"
+      - "./mysql/my.cnf":/etc/mysql/my.cnf
     ports:
       - "3306:3306"
     shm_size: '5gb'
