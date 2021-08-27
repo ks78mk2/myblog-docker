@@ -35,8 +35,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./nginx
-    volumes:
-      - /etc/letsencrypt/live/www.ks78mk2.ga:/etc/ssl/cert
     ports:
       - "80:80"
 
