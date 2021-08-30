@@ -39,6 +39,7 @@ services:
       - /home/opc/www.ks78mk2.ga:/etc/ssl/cert
     ports:
       - "80:80"
+      - "443:443"
 
   backend:
     image: ks78mk2/my-blog-server
