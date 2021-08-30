@@ -48,5 +48,6 @@ services:
       - ./my-blog-server:/app
       # - /app/node_modules
       - /home/opc/my-blog-server-static/node_modules:/app/node_modules      
+      - /home/opc/www.ks78mk2.ga:/etc/ssl/cert
     shm_size: '5gb'  
   
