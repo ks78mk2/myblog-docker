@@ -30,7 +30,7 @@
             - GITHUB WEBHOOK 
             - Dashboard -> my-blog (git, docker-compose를 이용한 전체 배포 nginx + react + nest.js + mysql)
                         -> my-blog-nest  (docker-hub 를 이용한 nest.js 개별 배포)
-                        -> my-blog-react (docker-hub 를 이용한 react 개별 배포, ./build 전체 git push 후 배포 )
+                        -> my-blog-react (docker-hub 를 이용한 react 개별 배포, ./build 전체 git push 후 배포)
           2) Command
             가) my-blog 
               [빌드 후 배포]
@@ -56,7 +56,7 @@
                 sudo docker stop backend
                 sudo docker rm backend
                 sudo docker pull ks78mk2/my-blog-server
-                nohup sudo docker run -d --name backend --network myblog-docker_default ks78mk2/my-blog-server > nohup.out 2>&1 &
+                nohup sudo docker run -d --name backend --network myblogdocker_default ks78mk2/my-blog-server > nohup.out 2>&1 &
 
             다) my-blog-react
               [빌드]
